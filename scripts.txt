@@ -1,0 +1,36 @@
+CREATE TABLE [dbo].[Accounts] (
+    [Id]       INT            NOT NULL,
+    [Password] NVARCHAR (255) NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC),
+    FOREIGN KEY ([Id]) REFERENCES [dbo].[Soldiers] ([SoldierId])
+);
+
+
+CREATE TABLE [dbo].[Computers] (
+    [ComputerId]       INT  NOT NULL,
+    [Type]             TEXT NOT NULL,
+    [Place]            TEXT NOT NULL,
+    [SoldierId]        INT  NULL,
+    [ClientSoldier_id] INT  NULL,
+    PRIMARY KEY CLUSTERED ([ComputerId] ASC),
+    FOREIGN KEY ([SoldierId]) REFERENCES [dbo].[Soldiers] ([SoldierId]),
+    CONSTRAINT [FK_F0B8E8F6] FOREIGN KEY ([SoldierId]) REFERENCES [dbo].[Soldiers] ([SoldierId]),
+    CONSTRAINT [FK_A5E93B0D] FOREIGN KEY ([ClientSoldier_id]) REFERENCES [dbo].[Soldiers] ([SoldierId])
+);
+
+CREATE TABLE [dbo].[Requests]
+(
+	[RequestId] INT NOT NULL PRIMARY KEY,
+	[Status] TEXT NOT NULL,
+	[ComputerType] TEXT NOT NULL,
+	[SoldierId] INT NOT NULL REFERENCES Soldiers(SoldierId)
+)
+
+CREATE TABLE [dbo].[Soldiers] (
+    [SoldierId] INT            NOT NULL,
+    [Job]       TEXT           NOT NULL,
+    [Place]     TEXT           NOT NULL,
+    [Name]      NVARCHAR (255) NULL,
+    PRIMARY KEY CLUSTERED ([SoldierId] ASC)
+);
+
